@@ -28,11 +28,32 @@
         $number = filter_var($number, FILTER_SANITIZE_STRING);
         $guests = $_POST['guests'];
         $guests = filter_var($guests, FILTER_SANITIZE_STRING);
-        
-      }
-      ?>
-<!-- header section starts  -->
 
+        $select_contact = $conn->prepare("SELECT * FROM `contact_form` WHERE name = ? AND number = ? AND guests = ?");
+        $select_contact->execute([$name, $number, $guests]);
+
+        if($select_contact->rowCount() > 0){
+         $message[] = 'message sent already!';
+        }else{
+         $insert_contact = $conn->prepare("INSERT INTO `contact_form` (name, number, guests) VALUES(?,?,?)");
+         $insert_contact->execute([$name, $number, $guests]);
+         $message[] = 'message sent successfully!';
+        }
+
+      }
+
+?>
+
+<?php
+      if(isset($message)){
+         foreach($message as $message){
+            echo '<div class="message"> <span>'.$message.'</span><i class="fas fa-times" onclick="this.parentElemet.remove();"></i></div>';
+   }
+}
+
+?>
+
+<!-- header section starts  -->
 <header class="header">
 
 <section class="flex">

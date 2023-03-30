@@ -83,6 +83,35 @@ section{
    text-transform: uppercase;
 }
 
+.message{
+   position: sticky;
+   top:0;
+   max-width: 1200px;
+   margin:0 auto;
+   z-index: 1100;
+   background-color: var(--black);
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap:1.5rem;
+   padding:2rem;
+}
+
+.message span{
+   font-size: 2rem;
+   color:var(--white);
+}
+
+.message i{
+   color:var(--green);
+   cursor: pointer;
+   font-size: 2.5rem;
+}
+
+.message i:hover{
+   transform: rotate(90deg);
+}
+
 .header{
    position: fixed;
    top:0; left:0; right:0;

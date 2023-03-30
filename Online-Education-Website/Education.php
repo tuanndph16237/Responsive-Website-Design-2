@@ -17,8 +17,48 @@
 </head>
 <body>
 <?php
-      
-?>     
+$db_name = 'mysql:host=localhost;dbname=education_contact';
+$user_name = 'root';
+$user_password = '';
+
+$conn = new PDO($db_name, $user_name, $user_password);
+
+if(isset($_POST['send'])){
+
+   $name = $_POST['name'];
+   $name = filter_var($name, FILTER_SANITIZE_STRING);
+   $number = $_POST['number'];
+   $number = filter_var($number, FILTER_SANITIZE_STRING);
+   $email = $_POST['email'];
+   $email = filter_var($email, FILTER_SANITIZE_STRING);
+   $courses = $_POST['courses'];
+   $courses = filter_var($courses, FILTER_SANITIZE_STRING);
+   $gender = $_POST['gender'];
+   $gender = filter_var($gender, FILTER_SANITIZE_STRING);
+
+   $select_contact = $conn->prepare("SELECT * FROM `education_form` WHERE name = ? AND number = ? AND email = ? AND courses = ? AND gender = ?");
+   $select_contact->execute([$name, $number, $email, $courses, $gender]);
+
+   if($select_contact->rowCount() > 0){
+         $message[] = 'already send the message!';
+        }else{
+         $insert_contact = $conn->prepare("INSERT INTO `education_form` (name, number, email, courses, gender) VALUES(?,?,?,?,?)");
+         $insert_contact->execute([$name, $number, $email, $courses, $gender]);
+         $message[] = 'successfully send the message!';
+        }
+
+      }
+?> 
+
+<?php
+if(isset($message)){
+   foreach($message as $message){
+      echo '<div class="message"><span>'.$message.'</span><i class="fas fa-times" onclick="this.parentElemet.remove();"></i></div>';
+   }
+}
+?>
+
+
 <!-- header section starts  -->
 
 <header class="header">
@@ -410,12 +450,12 @@
    <form action="" method="post">
       <span>your name</span>
       <input type="text" required placeholder="enter your full name" maxlength="50" name="name" class="box">
-      <span>your email</span>
-      <input type="email" required placeholder="enter your valie email" maxlength="50" name="email" class="box">
       <span>your number</span>
-      <input type="number" required placeholder="enter your valie number" max="9999999999" min="0" name="number" class="box" onkeypress="if(this.value.length == 10) return false;">
+      <input type="number" required placeholder="enter your value number" max="9999999999" min="0" name="number" class="box" onkeypress="if(this.value.length == 10) return false;">
+      <span>your email</span>
+      <input type="email" required placeholder="enter your value email" maxlength="50" name="email" class="box">
       <span>select course</span>
-      <select name="couses" class="box" required>
+      <select name="courses" class="box" required>
          <option value="" disabled selected>select the course --</option>
          <option value="web developement">web developement</option>
          <option value="science and biology">science and biology</option>
