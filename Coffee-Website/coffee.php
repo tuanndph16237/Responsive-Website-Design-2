@@ -14,7 +14,7 @@
 </head>
 <body>
       <?php
-      $db_name = 'mysql:host=localhost;dbname=coffee_contact';
+      $db_name = 'mysql:host=localhost;dbname=coffee';
       $username = 'root';
       $password = '';
 
@@ -29,13 +29,13 @@
         $guests = $_POST['guests'];
         $guests = filter_var($guests, FILTER_SANITIZE_STRING);
 
-        $select_contact = $conn->prepare("SELECT * FROM `contact_form` WHERE name = ? AND number = ? AND guests = ?");
+        $select_contact = $conn->prepare("SELECT * FROM `coffee_form` WHERE name = ? AND number = ? AND guests = ?");
         $select_contact->execute([$name, $number, $guests]);
 
         if($select_contact->rowCount() > 0){
          $message[] = 'message sent already!';
         }else{
-         $insert_contact = $conn->prepare("INSERT INTO `contact_form` (name, number, guests) VALUES(?,?,?)");
+         $insert_contact = $conn->prepare("INSERT INTO `coffee_form` (name, number, guests) VALUES(?,?,?)");
          $insert_contact->execute([$name, $number, $guests]);
          $message[] = 'message sent successfully!';
         }

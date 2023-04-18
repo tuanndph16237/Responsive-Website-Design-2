@@ -17,7 +17,7 @@
 </head>
 <body>
 <?php
-$db_name = 'mysql:host=localhost;dbname=education_contact';
+$db_name = 'mysql:host=localhost;dbname=education';
 $user_name = 'root';
 $user_password = '';
 
