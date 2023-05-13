@@ -14,6 +14,7 @@
 
 <!-- custom css file link  -->
 <link rel="stylesheet" href="css/wedding.css">
+
 </head>
 <body>
    

@@ -19,7 +19,7 @@
 <body>
 <?php
 
-$conn = mysqli_connect('localhost','root','','dentist') or die('connection failed');
+$conn = mysqli_connect('localhost','root','','dentist_contact') or die('connection failed');
 
 if(isset($_POST['submit'])){
 
@@ -40,7 +40,6 @@ if(isset($_POST['submit'])){
 
 ?>
 
-   
 <!-- header section starts  -->
 
 <header class="header fixed-top">

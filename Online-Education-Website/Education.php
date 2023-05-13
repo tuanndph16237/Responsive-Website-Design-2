@@ -17,7 +17,7 @@
 </head>
 <body>
 <?php
-$db_name = 'mysql:host=localhost;dbname=education';
+$db_name = 'mysql:host=localhost;dbname=education_contact';
 $user_name = 'root';
 $user_password = '';
 
@@ -36,7 +36,7 @@ if(isset($_POST['send'])){
    $gender = $_POST['gender'];
    $gender = filter_var($gender, FILTER_SANITIZE_STRING);
 
-   $select_contact = $conn->prepare("SELECT * FROM `education_form` WHERE name = ? AND number = ? AND email = ? AND courses = ? AND gender = ?");
+   $select_contact = $conn->prepare("SELECT * FROM `contact_form` WHERE name = ? AND number = ? AND email = ? AND courses = ? AND gender = ?");
    $select_contact->execute([$name, $number, $email, $courses, $gender]);
 
    if($select_contact->rowCount() > 0){
